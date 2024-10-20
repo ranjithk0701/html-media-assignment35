@@ -1,0 +1,56 @@
+1->
+ListNode* reverseList(ListNode* head) {
+        if(head==NULL || head->next==NULL) return head;
+        ListNode* newHead = reverseList(head->next);
+        head->next->next = head;
+        head->next = NULL;
+        return newHead;
+    }
+    
+    ListNode* swapPairs(ListNode* head) {
+        ListNode* a = NULL;
+        ListNode* temp = head;
+        ListNode* x = new ListNode(-1);
+        ListNode* y = x;
+        while(temp){
+            ListNode* t = temp;
+            temp = temp->next;
+            if(temp) a = temp->next;
+            if(temp) temp->next = NULL;
+            ListNode* N = reverseList(t);
+            if(x) x->next = N;
+            while(x->next){
+                x = x->next;
+            }
+            temp = a;
+            if(temp && temp->next == NULL){
+                x->next = temp;
+                return y->next;
+            }
+        }
+        return y->next;
+    }
+
+2->
+
+class Solution {
+public:
+    ListNode* mergeNodes(ListNode* head) {
+        ListNode* temp = head->next;
+        ListNode* tail = new ListNode(-1);
+        ListNode* dummy = tail;
+        int sum = 0;
+        while(temp){
+            if(temp->val != 0){
+                sum = sum + temp->val;
+            }
+            else{
+                tail->next = new ListNode(sum);
+                tail = tail->next;
+                sum = 0;
+            }
+            temp = temp->next;
+        }
+        return dummy->next;
+    }
+};
